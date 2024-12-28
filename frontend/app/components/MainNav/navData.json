@@ -1,0 +1,12 @@
+{
+  "links": [
+    { "id": 1, "label": "Home", "href": "/" },
+    { "id": 2, "label": "About", "href": "/about" },
+    { "id": 3, "label": "Contact", "href": "/contact" }
+  ],
+  "userMenu": [
+    { "id": 1, "label": "Profile", "onClick": "handleProfile" },
+    { "id": 2, "label": "Settings", "onClick": "handleSettings" },
+    { "id": 3, "label": "Delete Account", "onClick": "handleDelete" }
+  ]
+}
