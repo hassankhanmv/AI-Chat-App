@@ -18,46 +18,47 @@ export function ChatMessages({ messages, isLoading }) {
   return (
     <ScrollArea className="h-[calc(100vh-180px)] pr-4">
       <div className="flex flex-col gap-4 pb-4">
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={cn(
-              "flex gap-3",
-              message.role === "user" ? "justify-end" : "justify-start"
-            )}
-          >
-            {message.role === "assistant" && (
-              <Avatar>
-                <AvatarImage src="/ai-avatar.png" alt="AI" />
-                <AvatarFallback>AI</AvatarFallback>
-              </Avatar>
-            )}
-
-            <Card
+        {messages &&
+          messages?.map((message, index) => (
+            <div
+              key={index}
               className={cn(
-                "max-w-[80%]",
-                message.role === "user"
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted"
+                "flex gap-3",
+                message.role === "user" ? "justify-end" : "justify-start"
               )}
             >
-              <CardContent className="p-3">
-                <div className="prose dark:prose-invert">
-                  <p className="text-sm leading-relaxed">{message.content}</p>
-                </div>
-                <time className="text-[10px] opacity-70 mt-2 block">
-                  {new Date(message.timestamp).toLocaleTimeString()}
-                </time>
-              </CardContent>
-            </Card>
+              {message.role === "assistant" && (
+                <Avatar>
+                  <AvatarImage src="" alt="AI" />
+                  <AvatarFallback>AI</AvatarFallback>
+                </Avatar>
+              )}
 
-            {message.role === "user" && (
-              <Avatar>
-                <AvatarFallback>ME</AvatarFallback>
-              </Avatar>
-            )}
-          </div>
-        ))}
+              <Card
+                className={cn(
+                  "max-w-[80%]",
+                  message.role === "user"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted"
+                )}
+              >
+                <CardContent className="p-3">
+                  <div className="prose dark:prose-invert">
+                    <p className="text-sm leading-relaxed">{message.content}</p>
+                  </div>
+                  <time className="text-[10px] opacity-70 mt-2 block">
+                    {new Date(message.timestamp).toLocaleTimeString()}
+                  </time>
+                </CardContent>
+              </Card>
+
+              {message.role === "user" && (
+                <Avatar>
+                  <AvatarFallback>ME</AvatarFallback>
+                </Avatar>
+              )}
+            </div>
+          ))}
 
         {isLoading && <MessageSkeleton />}
         <div ref={scrollRef} />

@@ -51,8 +51,11 @@ const MainNav = ({ isSignedIn = false }) => {
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              {navData.userMenu.map((item) => (
-                <DropdownMenuItem key={item.id} onClick={item.onClick}>
+              {navData.userMenu.map((item, idx) => (
+                <DropdownMenuItem
+                  key={`${item.id}-${idx}`}
+                  onClick={item.onClick}
+                >
                   {item.label}
                 </DropdownMenuItem>
               ))}
