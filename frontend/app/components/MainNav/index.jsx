@@ -10,8 +10,10 @@ import {
 import { Icons } from "./Icons"; // Optional icons for better UI
 import navData from "./navData.json"; // JSON file for dynamic data
 import { ThemeToggle } from "../theme-toggle";
+import { useNavigate } from "@remix-run/react";
 
 const MainNav = ({ isSignedIn = false }) => {
+  const navigate = useNavigate();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   return (
@@ -38,7 +40,9 @@ const MainNav = ({ isSignedIn = false }) => {
         {!isSignedIn ? (
           <>
             {/* Sign Up and Log In Buttons */}
-            <Button variant="default">Sign In</Button>
+            <Button variant="default" onClick={() => navigate("/auth/login")}>
+              Sign In
+            </Button>
             <Button variant="default" size={"default"}>
               Log In
             </Button>

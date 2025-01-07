@@ -12,10 +12,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    age: {
-      type: Number,
-      required: true,
-    },
+
     password: {
       type: String,
       required: true,
@@ -24,7 +21,7 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-UserSchema.statics.signup = async function (name, age, email, password) {
+UserSchema.statics.signup = async function (name, email, password) {
   const exist = await this.findOne({ email });
 
   if (exist) {
@@ -53,7 +50,6 @@ UserSchema.statics.signup = async function (name, age, email, password) {
 
   const user = await this.create({
     name,
-    age,
     email,
     password: hash,
   });

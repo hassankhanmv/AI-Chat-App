@@ -9,8 +9,16 @@ import {
 } from "../../components/ui/card";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
+import { Form, useActionData, useNavigate } from "@remix-run/react";
 
 export function LoginForm({ className, ...props }) {
+  const navigate = useNavigate();
+  const actionData = useActionData();
+  if (actionData?.user) {
+    navigate("/chat/new-chat");
+  }
+  console.log(actionData, "actionData");
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -21,18 +29,19 @@ export function LoginForm({ className, ...props }) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className="flex flex-col gap-16">
-              <div className="grid my-2 gap-2">
+          <Form method="post">
+            <div className="flex flex-col gap-4">
+              <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="m@example.com"
                   required
                 />
               </div>
-              <div className="grid my-2 gap-2">
+              <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                   <a
@@ -42,12 +51,12 @@ export function LoginForm({ className, ...props }) {
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" type="password" name="password" required />
               </div>
-              <Button type="submit" className="w-full my-3">
+              <Button type="submit" className="w-full">
                 Login
               </Button>
-              <Button variant="outline" className="w-full my-1">
+              <Button variant="outline" className="w-full">
                 Login with Google
               </Button>
             </div>
@@ -57,7 +66,7 @@ export function LoginForm({ className, ...props }) {
                 Sign up
               </a>
             </div>
-          </form>
+          </Form>
         </CardContent>
       </Card>
     </div>

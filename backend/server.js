@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(
   cors({
-    origin: "http://localhost:5173", // Replace with your frontend URL
+    origin: "http://localhost:5173",
   })
 );
 
@@ -24,6 +24,10 @@ app.use((req, res, next) => {
 });
 
 // Routes
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
 app.use("/api", userRoutes);
 
 // Connect to MongoDB

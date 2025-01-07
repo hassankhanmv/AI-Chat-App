@@ -17,9 +17,9 @@ export default function Index() {
       <div className="flex min-h-screen items-center justify-center">
         <div className="flex flex-col gap-4 justify-center items-center">
           <h1 className="text-4xl block">Start Chat with Our AI</h1>
-          <Button>
-            <Link to={"/chat/new-chat"}>Let's Chat</Link>
-          </Button>
+          <Link to={"/chat/new-chat"}>
+            <Button>Let's Chat</Button>
+          </Link>
         </div>
       </div>
     </>

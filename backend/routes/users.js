@@ -9,13 +9,12 @@ router.post("/signup", signup);
 
 router.post("/users", async (req, res) => {
   try {
-    const { name, email, age } = req.body;
+    const { name, email } = req.body;
 
     // Create a new user
     const newUser = new User({
       name,
       email,
-      age,
     });
 
     const savedUser = await newUser.save();
