@@ -3,29 +3,37 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const userRoutes = require("./routes/Users");
+const userRoutes = require("./routes/users");
 
 // Initialize App
 const app = express();
 
 // Use CORS middleware
-app.use(cors());
+// app.use(cors());
 app.use(
   cors({
     origin: "http://localhost:5173",
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   })
 );
 
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  console.log(req.path, req.method);
+app.use((err, req, res, next) => {
+  // console.log(req.path, req.method);
+  console.log(`Request received: ${req.path} ${req.method}`);
+  res.status(err.statusCode).send(err.message);
   next();
 });
 
 // Routes
-app.get("/", (req, res) => {
-  res.send("Hello World");
+app.get("/", (req, res, next) => {
+  try {
+    res.send("Hello World");
+} catch(e) {
+    next(e);
+}
+  
 });
 
 app.use("/api", userRoutes);

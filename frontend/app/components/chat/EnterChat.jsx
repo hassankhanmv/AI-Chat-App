@@ -1,5 +1,5 @@
-import React from "react";
-import { Send } from "lucide-react";
+import React, { useEffect } from "react";
+import { Loader2, Send } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -20,7 +20,7 @@ const formSchema = z.object({
   }),
 });
 
-export function EnterChat({ onSubmit, isLoading }) {
+export function EnterChat({ onSubmit, isLoading, selectSuggestion }) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,6 +32,14 @@ export function EnterChat({ onSubmit, isLoading }) {
     await onSubmit(values);
     form.reset();
   };
+
+  useEffect(() => {
+    if (selectSuggestion) {
+      form.setValue('prompt', selectSuggestion.example);
+    }
+  }, [selectSuggestion, form]);
+
+  const promptValue = selectSuggestion?.title || "";
 
   return (
     <Card className="border-0 shadow-none">
@@ -48,6 +56,8 @@ export function EnterChat({ onSubmit, isLoading }) {
                       <Input
                         placeholder="Type your message..."
                         className="h-12 rounded-full bg-muted px-4"
+                        value={promptValue || field.value}
+                        onChange={field.onChange}
                         {...field}
                         onKeyDown={(e) => {
                           if (e.key === "Enter" && !e.shiftKey) {
@@ -67,7 +77,7 @@ export function EnterChat({ onSubmit, isLoading }) {
                 disabled={isLoading}
               >
                 {isLoading ? (
-                  <span className="animate-spin">⏳</span>
+                  <Loader2 className="h-7 w-7 animate-spin" />
                 ) : (
                   <Send className="h-5 w-5" />
                 )}

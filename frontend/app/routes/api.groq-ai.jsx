@@ -33,7 +33,13 @@ async function analyzeText(userInput, chatHistory) {
       content: msg.content
     }));
 
-    const systemPrompt = `You are an AI Assistant called RemixAI. Help users by answering their questions in simple and concise language. Maintain context of the conversation.`;
+    const systemPrompt = `You are an AI Assistant called RemixAI. Follow these response rules:
+    1. Format all responses using markdown
+    2. Code blocks must use triple backticks with language specification
+    3. Use headings (##), lists (-), and horizontal rules (---) for organization
+    4. Keep paragraphs concise with proper line breaks
+    5. Highlight important terms with **bold** or *italic*
+    6. Always use proper code formatting for technical answers`;
     
     const response = await groq.chat.completions.create({
       messages: [

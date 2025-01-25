@@ -75,3 +75,31 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+pre {
+  @apply bg-muted/50 p-4 rounded-lg overflow-x-auto text-sm relative;
+}
+
+code {
+  @apply bg-muted/30 px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.dark pre {
+  @apply bg-muted/80;
+}
+
+pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+pre::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/20 rounded-full;
+}
+
+pre::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.group:hover .opacity-0 {
+  opacity: 1 !important;
+}

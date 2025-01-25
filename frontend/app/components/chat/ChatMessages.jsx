@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card, CardContent } from "../ui/card";
 import { cn } from "../../lib/utils";
 import { MessageSkeleton } from "./MessageSkeleton";
+import { MarkdownRenderer } from "../MarkdownRenderer";
 
 export function ChatMessages({ messages, isLoading }) {
   const scrollRef = useRef(null);
@@ -44,7 +45,8 @@ export function ChatMessages({ messages, isLoading }) {
               >
                 <CardContent className="p-3">
                   <div className="prose dark:prose-invert">
-                    <p className="text-sm leading-relaxed">{message.content}</p>
+                  <MarkdownRenderer content={message.content} />
+                    {/* <p className="text-sm leading-relaxed">{message.content}</p> */}
                   </div>
                   <time className="text-[10px] opacity-70 mt-2 block">
                     {new Date(message.timestamp).toLocaleTimeString()}
